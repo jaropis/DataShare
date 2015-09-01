@@ -1,0 +1,9 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Sending email to data owner</h1>
+</div>
+{{ wtf.quick_form(form) }}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1> There are the following categories in the database:</h1>
+  </div>
+    <ul>
+      {% for category in categories %}
+      <li><a href="{{ url_for('main.categories_datasets', category_id=category.id, viewer_id=viewer_id) }}"> {{ category.category_name }}</a></li>
+      {% endfor %}
+    </ul>
+{% endblock %}
+    

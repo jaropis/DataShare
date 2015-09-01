@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+      {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+<div class="alert alert-warning">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+      {{ message }}
+</div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+  <div class="page-header">
+    <h1>Browse the data by:</h1>
+  </div>
+  <ul>
+    <li><a href ="{{url_for('main.users_list', viewer_id=viewer_id)}}">User name</a></li>
+    <li><a href ="{{url_for('main.categories_list', viewer_id=viewer_id)}}">Dataset category</a></li>
+    <li><a href ="{{url_for('main.keywords_list', viewer_id=viewer_id)}}">Keyword</a></li>
+  </ul>
+{% endblock %}
+

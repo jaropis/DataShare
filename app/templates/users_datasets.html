@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Datasets for user <em>{{name}}</em></h1>
+  </div>
+  <ul>
+  {% for idx in datasets %}
+    <li><a href="{{ url_for('main.present_dataset', dataset_id=idx.id, viewer_id=viewer_id) }}"> {{ idx.name }}</a></li>
+  {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Information on the <em>{{ dataset.name }}</em> dataset</h1>
+  </div>
+  <ul>
+    <li><em>name</em>: {{ dataset.name }}</li>
+    <li><em>owner</em>: {{ dataset.user.fullname }}</li>
+    <li><em>owner's email</em> (click to send message): <a href="{{url_for('main.contact_owner', owner_id= dataset.user.id, viewer_id=viewer_id, dataset_id=dataset.id)}}">{{ dataset.user.email }}</a> </li>
+    <li><em>number of files</em>: {{ dataset.numberOfFiles }}</li>
+    <li><em>category</em>: {{ dataset.category.category_name }}</li>
+    <li><em>keywords</em>: {{ keywords }} </li>
+    <li><em>description</em>: {{ dataset.description }}</li>
+  </ul>
+{% endblock %}
+

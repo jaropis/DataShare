@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Information on user <em>{{ this_user.fullname }}</em></h1>
+  </div>
+  <ul>
+    <li><em>name</em>: {{ this_user.name }}</li>
+    <li><em>full name</em>: {{ this_user.fullname }}</li>
+    <li><em>email</em> (click to send message): {{ this_user.email }} </li>
+    <li><em>datasets</em>: <a href="{{url_for('main.users_datasets', user_id=this_user.id, viewer_id=viewer_id) }}">click to see datasets</a></li>
+  </ul>
+{% endblock %}
+

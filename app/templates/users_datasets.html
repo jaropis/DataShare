@@ -2,11 +2,20 @@
 
 {% block content %}
   <div class="page-header">
-    <h1>Datasets for user <em>{{name}}</em></h1>
+    <h1 align="center">Datasets for user <em>{{name}}</em></h1>
   </div>
+
+  {% block page_content %}
+  {{ left_sidebar() }}
+   <div class="col-md-10">
+
+
+
   <ul>
   {% for idx in datasets %}
-    <li><a href="{{ url_for('main.present_dataset', dataset_id=idx.id, viewer_id=viewer_id) }}"> {{ idx.name }}</a></li>
+    <li><a href="{{ url_for('main.present_dataset', dataset_id=idx.id) }}"> {{ idx.name }}</a></li>
   {% endfor %}
   </ul>
+   </div>
+{% endblock %}
 {% endblock %}

@@ -1,13 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="page-header">
-<h1> The following users have registered datasets</h1>
+
+<div class="page-header">
+<h1 align="center"> The following users have registered datasets</h1>
   </div>
+
+  {% block page_content %}
+  {{ left_sidebar() }}
+   <div class="col-md-10">
+
   <ul>
   {% for idx in users %}
-    <li><a href="{{ url_for('main.users_datasets', user_id=idx.id, viewer_id=viewer_id) }}"> {{ idx.fullname }}</a></li>
+    <li><a href="{{ url_for('main.users_datasets', user_id=idx.id) }}"> {{ idx.fullname }}</a></li>
 
   {% endfor %}
   </ul>
+   </div>
   {% endblock %}
+{% endblock %}

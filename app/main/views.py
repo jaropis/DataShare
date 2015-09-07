@@ -4,64 +4,72 @@ from .. import db
 from .forms import DatasetSubmit, UserSubmit, ContactOwner
 from ..models import User, KeyWord, DataSet, Category
 from ..email import send_email
+from flask.ext.login import login_required, current_user
 
-@main.route('/login')
-def login():
-    pass
+@main.route('/explore/')
+@login_required
+#@login_required
+def data_share():
+    return render_template('datashare.html')
 
-@main.route('/explore/<int:viewer_id>/')
-def data_share(viewer_id):
-    return render_template('datashare.html', viewer_id=viewer_id)
-
-@main.route('/users/<int:viewer_id>')
-def users_list(viewer_id):
+@main.route('/users/')
+@login_required
+def users_list():
     users = db.session.query(User).all()
-    return render_template('users_list.html', users=users, viewer_id=viewer_id)
+    return render_template('users_list.html', users=users)
 
-@main.route('/users_datasets/<int:viewer_id>/<int:user_id>/')
-def users_datasets(viewer_id, user_id):
+@main.route('/users_datasets/<int:user_id>/')
+@login_required
+def users_datasets(user_id):
     this_user = db.session.query(User).filter_by(id=user_id)
     name=this_user.one().fullname
     datasets = this_user.one().dataset
-    return render_template('users_datasets.html', user_id=user_id, datasets=datasets, name=name, viewer_id=viewer_id)
+    return render_template('users_datasets.html', user_id=user_id, datasets=datasets, name=name)
 
-@main.route('/keywords_datasets/<int:viewer_id>/<int:keyword_id>/')
-def keywords_datasets(viewer_id, keyword_id):
+@main.route('/keywords_datasets/<int:keyword_id>/')
+@login_required
+def keywords_datasets(keyword_id):
     keyword = db.session.query(KeyWord).filter_by(id=keyword_id).one()
     name=keyword.keyword
-    return render_template('keywords_datasets.html', keyword=keyword, name=name, viewer_id=viewer_id)
+    return render_template('keywords_datasets.html', keyword=keyword, name=name)
 
-@main.route('/categories_datasets/<int:viewer_id>/<int:category_id>/')
-def categories_datasets(viewer_id, category_id):
+@main.route('/categories_datasets/<int:category_id>/')
+@login_required
+def categories_datasets(category_id):
     this_category = db.session.query(Category).filter_by(id=category_id).one()
     name=this_category.category_name
-    return render_template('categories_datasets.html', this_category=this_category, name=name, viewer_id=viewer_id)
+    return render_template('categories_datasets.html', this_category=this_category, name=name)
 
-@main.route('/keywords/<int:viewer_id>')
-def keywords_list(viewer_id):
+@main.route('/keywords/')
+@login_required
+def keywords_list():
     keywords = db.session.query(KeyWord).all()
-    return render_template('keywords_list.html', keywords=keywords, viewer_id=viewer_id)
+    return render_template('keywords_list.html', keywords=keywords)
 
-@main.route('/category/<int:viewer_id>')
-def categories_list(viewer_id):
+@main.route('/category/')
+@login_required
+def categories_list():
     categories = db.session.query(Category).all()
-    return render_template('categories_list.html', categories=categories, viewer_id=viewer_id)
+    return render_template('categories_list.html', categories=categories)
 
-@main.route('/dataset/<int:viewer_id>/<int:dataset_id>/')
-def present_dataset(viewer_id,dataset_id):
+@main.route('/dataset/<int:dataset_id>/')
+@login_required
+def present_dataset(dataset_id):
     dataset = db.session.query(DataSet).filter_by(id=dataset_id).one()
     keywords = ", ".join([keyword.keyword for keyword in dataset.keywords])
-    return render_template('present_dataset.html', dataset=dataset, keywords=keywords, viewer_id=viewer_id)
+    return render_template('present_dataset.html', dataset=dataset, keywords=keywords)
 
-@main.route('/user/<int:viewer_id>/<int:user_id>/')
-def present_user(viewer_id, user_id):
+@main.route('/user/<int:user_id>/')
+@login_required
+def present_user(user_id):
     this_user = db.session.query(User).filter_by(id=user_id).one()
-    return render_template('present_user.html', this_user=this_user, user_id=user_id, viewer_id=viewer_id)
+    return render_template('present_user.html', this_user=this_user, user_id=user_id)
 
-@main.route('/register_dataset/<int:user_id>/', methods=['GET', 'POST'])
-def register_dataset(user_id):
+@main.route('/register_dataset/', methods=['GET', 'POST'])
+@login_required
+def register_dataset():
     form = DatasetSubmit()
-    this_user = db.session.query(User).filter_by(id=user_id).one() 
+    this_user = current_user
     username = this_user.fullname
     ## actually adding data to the database
     if form.validate_on_submit():
@@ -90,30 +98,32 @@ def register_dataset(user_id):
         db.session.add(this_user)
         db.session.commit()
         flash("Dataset " +form.name.data+" has been added")
-        return redirect(url_for('main.data_share', viewer_id=user_id))
+        return redirect(url_for('main.data_share'))
     return render_template('register_dataset.html', form=form, name = username)
 
-@main.route('/register_user/<int:viewer_id>', methods=['GET', 'POST'])
-def register_user(viewer_id):
-    form = UserSubmit()
-    ## actually adding data to the database
-    if form.validate_on_submit():
-        this_user = User(name = form.name.data, fullname = form.fullname.data, email = form.email.data, password = form.password.data)
-        db.session.add(this_user)
-        db.session.commit()
-        flash("User "+form.fullname.data+" has been added")
-        send_email("jaropis@zg.home.pl", "New user added", "mail/new_user", user=this_user.fullname, email=this_user.email)
-        return redirect(url_for('main.data_share', viewer_id=viewer_id))
-    return render_template('register_user.html', form=form)
+# @main.route('/register_user', methods=['GET', 'POST'])
+# @login_required
+# def register_user():
+#     user_id
+#     form = UserSubmit()
+#     ## actually adding data to the database
+#     if form.validate_on_submit():
+#         this_user = User(name = form.name.data, fullname = form.fullname.data, email = form.email.data, password = form.password.data)
+#         db.session.add(this_user)
+#         db.session.commit()
+#         flash("User "+form.fullname.data+" has been added")
+#         send_email("jaropis@zg.home.pl", "New user added", "mail/new_user", user=this_user.fullname, email=this_user.email)
+#         return redirect(url_for('main.data_share', viewer_id=viewer_id))
+#     return render_template('register_user.html', form=form)
 
-@main.route('/contact_owner/<int:owner_id>/<int:viewer_id>/<int:dataset_id>/', methods=['GET', 'POST'])
-def contact_owner(owner_id, viewer_id, dataset_id):
-
+@main.route('/contact_owner/<int:owner_id>/<int:dataset_id>/', methods=['GET', 'POST'])
+@login_required
+def contact_owner(owner_id, dataset_id):
+    viewer = current_user
     owner = db.session.query(User).filter_by(id=owner_id).one()
     ownername = owner.fullname
     owneremail = owner.email
     
-    viewer = db.session.query(User).filter_by(id=viewer_id).one()
     viewername = viewer.fullname
     vieweremail = viewer.email
 
@@ -129,7 +139,7 @@ def contact_owner(owner_id, viewer_id, dataset_id):
         ## Marking-up to be able to retain html and avoid XSS
         messagebody_html = Markup(form.content.data.replace("\n", "<br>"))
         send_email(owneremail, "Data request", "mail/contact", messagebody_txt=messagebody_txt, messagebody_html=messagebody_html)
-        return redirect(url_for('main.data_share', viewer_id=viewer_id))
+        return redirect(url_for('main.data_share'))
     return render_template('contact_form.html', form=form)
 
 

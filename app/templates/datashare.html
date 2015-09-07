@@ -13,12 +13,38 @@
     {% endwith %}
 
   <div class="page-header">
-    <h1>Browse the data by:</h1>
+    <h2 align="center">Browse the data by:</h2>
   </div>
-  <ul>
-    <li><a href ="{{url_for('main.users_list', viewer_id=viewer_id)}}">User name</a></li>
-    <li><a href ="{{url_for('main.categories_list', viewer_id=viewer_id)}}">Dataset category</a></li>
-    <li><a href ="{{url_for('main.keywords_list', viewer_id=viewer_id)}}">Keyword</a></li>
-  </ul>
+  {% block page_content %}
+  {{ left_sidebar() }}
+  <div class="col-md-10">
+    <div class="col-md-4">
+      <div class="panel panel-default">
+	<div class="panel-heading">  <a href ="{{url_for('main.users_list')}}">User name</a>
+	</div>
+	<div class="panel-body"> Browse the registered users
+	</div>
+      </div> 
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+	<div class="panel-heading">  <a href ="{{url_for('main.categories_list')}}">Dataset category</a>
+	</div>
+	<div class="panel-body"> Browse by category
+	</div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="panel panel-default">
+	<div class="panel-heading"> <a href ="{{url_for('main.keywords_list')}}">Keyword</a>
+	</div>
+	<div class="panel-body"> Browse by keyword
+	</div>
+      </div> 
+    </div>
+  </div>
+{% endblock %}
 {% endblock %}
 

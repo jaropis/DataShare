@@ -2,13 +2,19 @@
 
 {% block content %}
   <div class="page-header">
-    <h1>Information on user <em>{{ this_user.fullname }}</em></h1>
+    <h1 align="center">Information on user <em>{{ this_user.fullname }}</em></h1>
   </div>
+    {% block page_content %}
+  {{ left_sidebar() }}
+   <div class="col-md-10">
+
   <ul>
     <li><em>name</em>: {{ this_user.name }}</li>
     <li><em>full name</em>: {{ this_user.fullname }}</li>
     <li><em>email</em> (click to send message): {{ this_user.email }} </li>
-    <li><em>datasets</em>: <a href="{{url_for('main.users_datasets', user_id=this_user.id, viewer_id=viewer_id) }}">click to see datasets</a></li>
+    <li><em>datasets</em>: <a href="{{url_for('main.users_datasets', user_id=this_user.id) }}">click to see datasets</a></li>
   </ul>
+   </div>
 {% endblock %}
+   {% endblock %}
 

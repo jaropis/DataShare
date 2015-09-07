@@ -3,7 +3,13 @@
 
 {% block content %}
 <div class="page-header">
-  <h1>Registering a new dataset for {{ name }}:</h1>
+  <h1 align="center">Registering a new dataset for {{ name }}:</h1>
 </div>
+  {% block page_content %}
+  {{ left_sidebar() }}
+   <div class="col-md-10">
+
 {{ wtf.quick_form(form) }}
+   </div>
 {% endblock %}
+   {% endblock %}

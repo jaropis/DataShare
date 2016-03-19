@@ -10,7 +10,7 @@
 
   <ul>
   {% for dataset in this_category.dataset %}
-    <li><a href="{{ url_for('main.present_dataset', dataset_id=dataset.id) }}"> {{ dataset.name }}</a></li>
+    <li><a href="{{ url_for('main.present_dataset', dataset_id=dataset.id) }}"> {{ dataset.name }}</a> owned by {{ dataset.user.fullname }}</li>
     {% endfor %}
   </ul>
    </div>

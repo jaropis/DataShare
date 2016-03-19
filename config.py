@@ -1,11 +1,14 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
+import sys
+sys.path.append(basedir)
+print(basedir)
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or '@my1strealapp'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or ''
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     DATASHARE_MAIL_SUBJECT_PREFIX = '[DATASHARE] '
-    DATASHARE_MAIL_SENDER = 'Datashare Admin <opengranary@gmail.com>'
+    DATASHARE_MAIL_SENDER = ''
     DATASHARE_ADMIN = os.environ.get('DATASHARE_ADMIN')
 
     @staticmethod
@@ -14,12 +17,12 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    MAIL_SERVER = 'smtp.googlemail.com'
-    MAIL_PORT = 465
-    MAIL_USE_TLS = False
-    MAIL_USE_SSL = True
-    MAIL_USERNAME = 'opengranary@gmail.com'
-    MAIL_PASSWORD = '@my1staccount'
+    MAIL_SERVER = ''
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
+    MAIL_USERNAME = ''
+    MAIL_PASSWORD = ''
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
 'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 

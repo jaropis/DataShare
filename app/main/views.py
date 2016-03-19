@@ -6,6 +6,7 @@ from ..models import User, KeyWord, DataSet, Category
 from ..email import send_email
 from flask.ext.login import login_required, current_user
 
+@main.route('/')
 @main.route('/explore/')
 @login_required
 #@login_required
@@ -76,6 +77,7 @@ def register_dataset():
         ## first we deal with keywords
         list_of_present_keywords = [keyword.keyword for keyword in db.session.query(KeyWord).all()]
         keywords_list_from_form = form.keywords.data.lower().split(",")
+        keywords_list_from_form = [keyword.strip() for keyword in keywords_list_from_form]
         ## now construct the list of KeyWord objects
         list_to_append = []
         for keyword in keywords_list_from_form:

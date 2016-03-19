@@ -48,6 +48,8 @@ def confirm(token):
         return redirect(url_for('main.data_share'))
     if current_user.confirm(token):
         flash('You have confirmed your account. Thanks!')
+        send_email('datasharesharedata@gmail.com', 'A new user!',
+                   'auth/email/new_user', user=current_user)
     else:
         flash('The confirmation link is invalid or has expired.')
     return redirect(url_for('auth.login'))

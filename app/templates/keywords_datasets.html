@@ -10,7 +10,7 @@
 
   <ul>
   {% for idx in keyword.dataset %}
-    <li><a href="{{ url_for('main.present_dataset', dataset_id=idx.id) }}"> {{ idx.name }}</a></li>
+    <li><a href="{{ url_for('main.present_dataset', dataset_id=idx.id) }}"> {{ idx.name }}</a> owned by {{ idx.user.fullname }}</li>
   {% endfor %}
   </ul>
    </div>

@@ -11,40 +11,43 @@
       {% endfor %}
     {% endif %}
     {% endwith %}
-
-  <div class="page-header">
-    <h2 align="center">Browse the data by:</h2>
-  </div>
-  {% block page_content %}
-  {{ left_sidebar() }}
-  <div class="col-md-10">
-    <div class="col-md-4">
-      <div class="panel panel-default">
-	<div class="panel-heading">  <a href ="{{url_for('main.users_list')}}">User name</a>
-	</div>
-	<div class="panel-body"> Browse the registered users
-	</div>
-      </div> 
-    </div>
-
-    <div class="col-md-4">
-      <div class="panel panel-default">
-	<div class="panel-heading">  <a href ="{{url_for('main.categories_list')}}">Dataset category</a>
-	</div>
-	<div class="panel-body"> Browse by category
-	</div>
+    <div class ="container">
+      <div class="jumbotron text-center">
+	<h1>DataShare</h1>
+	<p>This is the DataShare application designed for sharing data. You can share your data with other researchers or find datasets which will help you in your research. Your email address will not be revealed to anyone unless you decide to do so yourself.</p>
+	<a  href="{{ url_for('auth.login') }}" class="btn btn-default">Log In!</a>
+	<a  href="{{ url_for('auth.register') }}" class="btn btn-info">Sign Up</a>
       </div>
     </div>
 
+  {% block page_content %}
+
+ <div class="container">
+      <div class="row">
     <div class="col-md-4">
-      <div class="panel panel-default">
-	<div class="panel-heading"> <a href ="{{url_for('main.keywords_list')}}">Keyword</a>
+	<h3>  <a href ="{{url_for('main.users_list')}}">User name</a></h3>
+	You can browse the data starting from the users who have registered the data.
+	<a href="{{url_for('main.users_list')}}" class="btn btn-default">More</a>
 	</div>
-	<div class="panel-body"> Browse by keyword
+
+	<div class="col-md-4">
+      <h3>  <a href ="{{url_for('main.categories_list')}}">Dataset category</a></h3>
+      There are two categories of recordings <em>RR</em> intervals and <em>ECG</em> recordings.
+      <a href="{{url_for('main.categories_list')}}" class="btn btn-default">More</a>
 	</div>
-      </div> 
+
+	<div class="col-md-4">
+	<h3> <a href ="{{url_for('main.keywords_list')}}">Keyword</a></h3>
+	Browse the data by keywords assigned by the data owner.
+	<a href="{{url_for('main.keywords_list')}}" class="btn btn-default">More</a>
+	</div>
+	<div class="navbar navbar-default navbar-fixed-bottom"> <!-- navbar-fixed-bottom sprawia, ze pasek jest przyklejony na dole -->
+      <div class="container">
+	<p class="navbar-text pull-left">Free software created by Jarosław Piskorski, Jerzy Sacha and Przemysław Guzik, sources at <a href="https://github.com/jaropis/DataShare">github</a>, license MIT</p> <!-- dzieki temu tekst jest prawidlowo wystylowany --><!-- pull-left sprawi, ze button przesunie sie na poczatek linii -->
+	<a class="navbar-btn btn-danger btn pull-right">Watch a Youtube tutorial</a> <!-- potrzebujemy tego ostatniego btn, zeby wyswietlalo sie jako przycisk - wczesniejsze opisuja jedynie styl i nie wywoluja pojawienia sie przycisku --><!-- pull-right sprawi, ze button przesunie sie na koniec linii -->
+      </div>
     </div>
-  </div>
+
 {% endblock %}
 {% endblock %}
 

@@ -12,7 +12,7 @@ migrate.init_app(app, db, directory = 'migrations')
 
 def make_shell_context():
     return dict(app=app, db=db, User=User, DataSet=DataSet, KeyWord=KeyWord, Category=Category)
-manager.add_command('shel', Shell(make_context=make_shell_context))
+manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 if __name__ == '__main__':
     manager.run()

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Datashare - Confirmed {% endblock %}
+
+{% block page_content %}
+      {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+<div class="alert alert-warning">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+      {{ message }}
+</div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+<div class="page-header">
+  <h1 align="center">User Confirmed!</h1>
+</div>
+</div>
+<h1 align="center">Now go to <a href="{{ url_for('auth.login') }}">this link</a> to Log In.</h1>
+</div>
+
+{% endblock %}
+

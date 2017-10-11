@@ -44,3 +44,6 @@ venv
 # emacs temps
 *~
 #*
+
+# moje zmienne srodowiskowe - TAJEMNICA!!!
+.env

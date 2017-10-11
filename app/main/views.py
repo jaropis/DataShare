@@ -8,8 +8,8 @@ from flask.ext.login import login_required, current_user
 
 @main.route('/')
 @main.route('/explore/')
-@login_required
 #@login_required
+
 def data_share():
     return render_template('datashare.html')
 
@@ -96,7 +96,7 @@ def register_dataset():
             category_to_assign = Category(category_name=form.category.data)
         this_user.dataset.append(DataSet(name=form.name.data, numberOfFiles=form.number_of_files.data,
                                          description = form.description.data, category=category_to_assign,
-                                         keywords=list_to_append))        
+                                         keywords=list_to_append))
         db.session.add(this_user)
         db.session.commit()
         flash("Dataset " +form.name.data+" has been added")
@@ -125,7 +125,7 @@ def contact_owner(owner_id, dataset_id):
     owner = db.session.query(User).filter_by(id=owner_id).one()
     ownername = owner.fullname
     owneremail = owner.email
-    
+
     viewername = viewer.fullname
     vieweremail = viewer.email
 
@@ -134,7 +134,7 @@ def contact_owner(owner_id, dataset_id):
     ##ATTENTION! pre-populating my TextArea with editable 'default' message
     default = 'Hello,\nMy name is '+viewername+'. I found the dataset '+dataset+' on DataShare and I am interested in collaborating.\n Please contact me at '+vieweremail
     form = ContactOwner(content=default)
-    
+
     if form.validate_on_submit():
         flash("Sent email to "+ownername)
         messagebody_txt = form.content.data

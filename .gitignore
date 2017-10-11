@@ -47,3 +47,8 @@ venv
 
 # moje zmienne srodowiskowe - TAJEMNICA!!!
 .env
+
+.idea
+.gitignore
+.Python
+__init__.py

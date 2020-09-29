@@ -32,6 +32,16 @@ class TestingConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
 
 class ProductionConfig(Config):
+    # @classmethod
+    # def init_app(app):
+        
+    MAIL_SERVER = dotify(os.environ.get('MAIL_SERVER'))
+    MAIL_PORT = os.environ.get('MAIL_PORT') ## old: 465
+    MAIL_USE_TLS = True ##old:False
+    MAIL_USE_SSL = False ## old:True
+    MAIL_USERNAME = dotify(os.environ.get('MAIL_USERNAME'))
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
 config = {

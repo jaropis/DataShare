@@ -1,4 +1,4 @@
-﻿Flask==1.0.0
+Flask==2.3.2
 Flask-Bootstrap==3.3.5.6
 Flask-Login==0.2.11
 Flask-Mail==0.9.1
